@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d129070d6ab45d54aa736dde8fe4871d
+timeCreated: 1572979866
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - PlanePol: {fileID: 1873789524658548, guid: daf5bf4a4b5d72742bfd3f431a3ef1d9, type: 2}
+  - Music: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
