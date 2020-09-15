@@ -30,6 +30,7 @@ public class Edit : MonoBehaviour
 	GameObject InfoPanel;
 	GameObject WeaponPanel;
 	int Cpu=0;
+	int Health=0;
 	Button btnLeft;
 	Button btnRight;
 	Button btnDelete;
@@ -60,8 +61,9 @@ public class Edit : MonoBehaviour
 				NO.name = "PlaneP";
 				NO.transform.parent = GameObject.Find("Pole").transform;
 			}
-        Setup.LoadBlocks(ref Cpu);
-		CpuUpdate ();
+        Setup.LoadBlocks();
+		LoadCpuHealth();
+		InfoPanelUpdate();
 		transform.LookAt (GameObject.Find("Figures").transform);
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -71,6 +73,15 @@ public class Edit : MonoBehaviour
 		CreateColorPanel ();
 		CreateWeaponPanel ();
     }
+	void LoadCpuHealth()
+	{
+		Cpu = 0;
+		Health = 0;
+		foreach (Transform child in GameObject.Find("Figures").transform) {
+			Cpu+=Setup.Figures[Setup.NameToInt(child.name)].Cpu;
+			Health+=Setup.Figures[Setup.NameToInt(child.name)].Health;
+		}
+	}
 	void PlayAudio(AudioClip x)
 	{
 		AudioSource audio = GetComponent<AudioSource>();
@@ -333,10 +344,13 @@ public class Edit : MonoBehaviour
 		}
 	}
 
-	void CpuUpdate()
+	void InfoPanelUpdate()
 	{
 		GameObject.Find ("Cpu").GetComponent<Text> ().text = Cpu.ToString();
 		GameObject.Find ("CpuSlider").GetComponent<Slider> ().value = Cpu;
+
+		GameObject.Find ("Health").GetComponent<Text> ().text = Health.ToString();
+		GameObject.Find ("HealthSlider").GetComponent<Slider> ().value = Health;
 	}
 	void TriggerPanel(GameObject panel)
 	{
@@ -490,7 +504,8 @@ public class Edit : MonoBehaviour
 			foreach (Transform child in GameObject.Find ("Figures").transform)
 				Destroy (child.gameObject);
 			Cpu=0;
-			CpuUpdate ();
+			Health = 0;
+			InfoPanelUpdate();
 		}
 		if (Input.GetKeyDown (KeyCode.Mouse0)) {
 			if (hits.Length > 0) {
@@ -503,7 +518,8 @@ public class Edit : MonoBehaviour
 				DeleteShablon();
 				Transform xx= Setup.madeFigure (Setup.IdCube, tr.position, tr.eulerAngles, Setup.MainColor);
 				Cpu+=Setup.Figures[Setup.IdCube].Cpu;
-				CpuUpdate ();
+				Health += Setup.Figures [Setup.IdCube].Health;
+				InfoPanelUpdate();
 				redFigure (xx);
 				if (simMode)
 				{
@@ -522,7 +538,8 @@ public class Edit : MonoBehaviour
 					Vector3 vv = new Vector3 (2*(lineX-tr.position.x)+tr.position.x,tr.position.y,tr.position.z);
 					Transform yy = Setup.madeFigure (Setup.IdCube, vv, tr.eulerAngles, Setup.MainColor);
 					Cpu+=Setup.Figures[Setup.IdCube].Cpu;
-					CpuUpdate ();
+					Health += Setup.Figures [Setup.IdCube].Health;
+					InfoPanelUpdate();
 					yy.eulerAngles = SimRotate(tr.eulerAngles);
 					if (yy.name == "Wheel1") {
 						yy.transform.Rotate (0, 180, 0);
@@ -551,7 +568,8 @@ public class Edit : MonoBehaviour
 						Transform t = w.transform;
 						while (isFigure(t.parent.tag))t = t.parent.transform;
 						Cpu-=Setup.Figures[Setup.NameToInt(t.name)].Cpu;
-						CpuUpdate();
+						Health -= Setup.Figures [Setup.IdCube].Health;
+						InfoPanelUpdate();
 						Destroy(t.gameObject);
 						figToRed (t);
 						madeFreePlanes (t);
@@ -561,7 +579,8 @@ public class Edit : MonoBehaviour
 							//надо добавить проверку что есть объект
 							if (g != null) {
 								Cpu-=Setup.Figures[Setup.NameToInt(g.name)].Cpu;
-								CpuUpdate ();
+								Health -= Setup.Figures [Setup.IdCube].Health;
+								InfoPanelUpdate();
 								Destroy(g);
 								figToRed (g.transform);
 								madeFreePlanes (g.transform);

@@ -83,8 +83,9 @@ public class EscapePanel : MonoBehaviour {
         ModalEscape.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-		if (SceneManager.GetActiveScene ().name == "Edit") {
-		}
+		//if (SceneManager.GetActiveScene ().name == "Edit") {
+		//}
+		Input.ResetInputAxes ();
     }
 
     void MainOnClick()

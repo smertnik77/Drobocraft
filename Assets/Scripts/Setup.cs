@@ -75,9 +75,9 @@ public static class Setup
 
     }
     
-	public static void LoadBlocks(ref int counter)
+	public static void LoadBlocks()
     {
-		counter = 0;
+		//counter = 0;
         //если нету записи, то выходим
         if (!PlayerPrefs.HasKey(string.Format("robot{0}", Setup.IdActiveRobot)))
             return;
@@ -103,7 +103,7 @@ public static class Setup
             rot.z = float.Parse(masParam[7]);
             //Добавляем блок на сцену
             madeFigure(id, pos, rot, color);
-			counter += Setup.Figures [id].Cpu;
+			//counter += Setup.Figures [id].Cpu;
         }
 		string L = PlayerPrefs.GetString(string.Format("LA{0}", Setup.IdActiveRobot));
 		if (!PlayerPrefs.HasKey(string.Format("LA{0}", Setup.IdActiveRobot)))L="-1,-1,-1";
@@ -615,6 +615,7 @@ public class Figure
 	private int _sim;
 	private string _name;
 	private string _type;
+	private int _health;
 	public int Sim{
 		get {
 			return _sim;
@@ -635,6 +636,11 @@ public class Figure
 			return _type;
 		}
 	}
+	public int Health{
+		get {
+			return _health;
+		}
+	}
 	public GameObject GO;
 	public Figure(
 		String Folder="retro",
@@ -642,7 +648,8 @@ public class Figure
 		int s=0,
 		String name="",
 		int cpu=1,
-		string type="Сube"
+		string type="Сube",
+		int health=1725
 	){
 		GO = Resources.Load("Models/"+Folder+"/"+filename, typeof(GameObject)) as GameObject;
 		_sim = s;
@@ -652,6 +659,7 @@ public class Figure
 			_name = filename;
 		_cpu = cpu;
 		_type = type;
+		_health = health;
 	}
 	public int Faces{
 		get{ 

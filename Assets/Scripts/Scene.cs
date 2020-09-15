@@ -18,7 +18,7 @@ public class Scene : MonoBehaviour {
 	float Angle=0f;
 	void Start () {
 		Setup.Start ();
-		Setup.LoadBlocks (ref x);
+		Setup.LoadBlocks ();
 		cam = Camera.main;
 		Marker = Resources.Load("Models/Edit/Marker", typeof(GameObject)) as GameObject;
 		Shablon=Resources.Load("Materials/Shablon", typeof(Material)) as Material;
