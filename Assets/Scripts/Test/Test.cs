@@ -97,7 +97,7 @@ public class Test : MonoBehaviour {
 		}
 	}
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (Setup.Pause)
 			return;
 		if(Input.GetKey(KeyCode.Mouse1)) {

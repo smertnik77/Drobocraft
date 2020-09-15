@@ -8,13 +8,14 @@ using System;
 using System.Threading;
 public class Main : MonoBehaviour {
     public GameObject PlanePol;
-    public GameObject Music;
+    //public GameObject Music;
     GameObject PanelItem;
     // Use this for initialization
     static bool loaded;
     private Coroutine routine;
     void Awake()
     {
+        /*
         if (!loaded)
         {
             AudioSource source = Music.GetComponent<AudioSource>();
@@ -31,6 +32,7 @@ public class Main : MonoBehaviour {
 			//Destroy(ModalOptions);
         }
         loaded = true;
+        */
     }
     void Start () {
         Setup.Start();
