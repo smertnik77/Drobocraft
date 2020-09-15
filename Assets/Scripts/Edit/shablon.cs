@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shablon : MonoBehaviour {
+public class Shablon : MonoBehaviour {
 	Material red;
 	// Use this for initialization
 	void Start () {

@@ -210,7 +210,7 @@ public class Scene : MonoBehaviour {
 			}
 			DeleteShablon();
 			nObject = madeShablon("Shablon",pos, Ray.transform.rotation, true);
-			nObject.AddComponent<shablon>();
+			nObject.AddComponent<Shablon>();
 			nObject.GetComponent<MeshCollider> ().isTrigger = true;
 			nObject.AddComponent<Rigidbody> ();
 			nObject.GetComponent<Rigidbody> ().isKinematic = true;
