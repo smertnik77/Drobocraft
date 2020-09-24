@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class CameraRotator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Setup.Pause) return;
 		if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
 			cam.transform.Translate (0, 0, -2);
 			//print (cam.transform.localPosition.z);

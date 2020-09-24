@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 475037686}
   - component: {fileID: 475037688}
   - component: {fileID: 475037687}
+  - component: {fileID: 475037689}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -400,6 +401,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475037685}
   m_CullTransparentMesh: 0
+--- !u!114 &475037689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475037685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &527092924
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1170,7 +1186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1451,7 +1467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1749,21 +1765,20 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522387918}
-  m_Text: "M: \u0433\u043B\u0430\u0432\u043D\u043E\u0435 \u043C\u0435\u043D\u044E\nT:
-    \u0442\u0435\u0441\u0442\u043E\u0432\u0430\u044F \u043A\u043E\u043C\u043D\u0430\u0442\u0430\nQ:
-    \u0412\u044B\u0431\u043E\u0440 \u0444\u0438\u0433\u0443\u0440\u044B\nC: \u0412\u044B\u0431\u043E\u0440
-    \u0446\u0432\u0435\u0442\u0430\t\n\u041A\u043E\u043B\u0435\u0441\u043E \u043C\u044B\u0448\u0438:
-    \u043A\u0440\u0443\u0442\u0438\u0442\u044C \u0444\u0438\u0433\u0443\u0440\u0443\nV:
-    \u0440\u0435\u0436\u0438\u043C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438\n>:
-    \u0440\u043E\u0431\u043E\u0442 \u0432\u0432\u0435\u0440\u0445\n<: \u0440\u043E\u0431\u043E\u0442
-    \u0432\u043D\u0438\u0437\nF: \u043F\u043E\u043A\u0440\u0430\u0441\u0438\u0442\u044C
-    \u0432\u0435\u0441\u044C \u0440\u043E\u0431\u043E\u0442\nO: \u0446\u0435\u043D\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\nPageUp:
-    \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0430\u044F \u0444\u0438\u0433\u0443\u0440\u0430\nPageDown:
-    \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0430\u044F \u0444\u0438\u0433\u0443\u0440\u0430\nDelete:
-    \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0440\u043E\u0431\u043E\u0442\u0430\n{:
-    \u0441\u0434\u0432\u0438\u043D\u0443\u0442\u044C \u043E\u0441\u044C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438
-    \u0432\u043B\u0435\u0432\u043E\n}: \u0441\u0434\u0432\u0438\u043D\u0443\u0442\u044C
-    \u043E\u0441\u044C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438 \u0432\u043F\u0440\u0430\u0432\u043E"
+  m_Text: "M: \u0433\u043B\u0430\u0432\u043D\u043E\u0435 \u043C\u0435\u043D\u044E\nE
+    : \u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C\t\nT:
+    \u0422\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C\nTAB: \u0412\u044B\u0431\u043E\u0440
+    \u0444\u0438\u0433\u0443\u0440\u044B\nC: \u0412\u044B\u0431\u043E\u0440 \u0446\u0432\u0435\u0442\u0430\t\n\u041A\u043E\u043B\u0435\u0441\u043E
+    \u043C\u044B\u0448\u0438: \u041A\u0440\u0443\u0442\u0438\u0442\u044C \u0444\u0438\u0433\u0443\u0440\u0443\nV:
+    \u0420\u0435\u0436\u0438\u043C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438\n>:
+    \u0420\u043E\u0431\u043E\u0442 \u0432\u0432\u0435\u0440\u0445\n<: \u0420\u043E\u0431\u043E\u0442
+    \u0432\u043D\u0438\u0437\nF: \u041F\u043E\u043A\u0440\u0430\u0441\u0438\u0442\u044C
+    \u0432\u0435\u0441\u044C \u0440\u043E\u0431\u043E\u0442\nO: \u0426\u0435\u043D\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u0442\u044C\nX
+    : \u041F\u0438\u043F\u0435\u0442\u043A\u0430\nDelete: \u0423\u0434\u0430\u043B\u0438\u0442\u044C
+    \u0440\u043E\u0431\u043E\u0442\u0430\n{: \u0421\u0434\u0432\u0438\u043D\u0443\u0442\u044C
+    \u043E\u0441\u044C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438 \u0432\u043B\u0435\u0432\u043E\n}:
+    \u0421\u0434\u0432\u0438\u043D\u0443\u0442\u044C \u043E\u0441\u044C \u0441\u0438\u043C\u043C\u0435\u0442\u0440\u0438\u0438
+    \u0432\u043F\u0440\u0430\u0432\u043E"
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1879,7 +1894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2032,6 +2047,7 @@ GameObject:
   - component: {fileID: 1912923192}
   - component: {fileID: 1912923194}
   - component: {fileID: 1912923193}
+  - component: {fileID: 1912923195}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2080,8 +2096,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
-    m_FontStyle: 0
+    m_FontSize: 24
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -2091,8 +2107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u043D\u043E\u0432\u043E\u0433\u043E
-    \u0440\u043E\u0431\u043E\u0442\u0430"
+  m_Text: CREATE NEW ROBOT
 --- !u!222 &1912923194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2101,3 +2116,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912923191}
   m_CullTransparentMesh: 0
+--- !u!114 &1912923195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912923191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1

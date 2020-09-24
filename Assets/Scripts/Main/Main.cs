@@ -66,7 +66,10 @@ public class Main : MonoBehaviour {
             PanelItem.transform.Find("InputField").GetComponent<InputField>().text = PlayerPrefs.GetString(string.Format("robotName{0}", i));
             PanelItem.transform.Find("InputField").GetComponent<InputField>().onValueChanged.AddListener(delegate{
                 ValueChangeCheck(PanelItem);
-            });   
+            });
+            //PanelItem.transform.Find("InputField").GetComponent<InputField>().onClick.AddListener(() => TextOnClick(PanelItem.transform.Find("InputField").GetComponent<InputField>()));
+            //textField.becomeFirstResponder()
+            //textField.selectAll(nil)
             PanelItem.GetComponent<Button>().onClick.AddListener(() => PanelOnClick(PanelItem));
         }
         Destroy(GameObject.Find("testPanelItem"));
@@ -81,10 +84,16 @@ public class Main : MonoBehaviour {
     void Update () {
        
     }
+
     public int ValueChangeCheck(GameObject x)
     {
         string s=x.transform.Find("InputField").GetComponent<InputField>().text;
         int i= int.Parse(x.name.Remove(0, 9));
+        if (s == "")
+        {
+           // s = "Robot " + i.ToString();
+           // x.transform.Find("InputField").GetComponent<InputField>().text=s;
+        }
         PlayerPrefs.SetString(string.Format("robotName{0}", i), s);
         PlayerPrefs.Save();
 		Input.ResetInputAxes ();

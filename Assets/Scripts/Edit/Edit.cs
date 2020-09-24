@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,8 +33,9 @@ namespace Edit
         private GameObject _figurePanel;
         private GameObject _infoPanel;
         private GameObject _weaponPanel;
-        private int _cpu = 0;
-        private int _health = 0;
+        private int _cpu;
+        private int _health;
+        private int _mass;
         private Button _btnLeft;
         private Button _btnRight;
         private Button _btnDelete;
@@ -68,7 +70,7 @@ namespace Edit
                 no.name = "PlaneP";
             }
             Setup.LoadBlocks();
-            LoadCpuHealth();
+            LoadInfo();
             InfoPanelUpdate();
             transform.LookAt(GameObject.Find("Figures").transform);
             Cursor.lockState = CursorLockMode.Locked;
@@ -80,14 +82,16 @@ namespace Edit
             CreateWeaponPanel();
         }
 
-        private void LoadCpuHealth()
+        private void LoadInfo()
         {
             _cpu = 0;
             _health = 0;
+            _mass = 0;
             foreach (Transform child in GameObject.Find("Figures").transform)
             {
                 _cpu += Setup.Figures[Setup.NameToInt(child.name)].Cpu;
                 _health += Setup.Figures[Setup.NameToInt(child.name)].Health;
+                _mass += Setup.Figures[Setup.NameToInt(child.name)].Mass;
             }
         }
 
@@ -384,9 +388,9 @@ namespace Edit
         {
             GameObject.Find("Cpu").GetComponent<Text>().text = _cpu.ToString();
             GameObject.Find("CpuSlider").GetComponent<Slider>().value = _cpu;
-
             GameObject.Find("Health").GetComponent<Text>().text = _health.ToString();
             GameObject.Find("HealthSlider").GetComponent<Slider>().value = _health;
+            GameObject.Find("Mass").GetComponent<Text>().text = _mass.ToString()+" kg";
         }
 
         private static void TriggerPanel(GameObject panel)
@@ -442,11 +446,18 @@ namespace Edit
             if (Setup.Pause) return;
             if (Input.GetKeyDown(KeyCode.Comma))
             {
+                float min = 1;
+                foreach (GameObject g in GameObject.FindGameObjectsWithTag("Figure"))
+                {
+                    if (min > (float)g.GetComponent<Collider>().bounds.min.y) min = (float)g.GetComponent<Collider>().bounds.min.y;
+                }
+                if (min < 1) return;
                 foreach (Transform ch in GameObject.Find("Figures").transform)
                 {
                     var position = ch.position;
                     position = new Vector3(position.x, position.y - 1, position.z);
                     ch.position = position;
+                    PlayAudio(Turn);
                 }
             }
             if (Input.GetKeyDown(KeyCode.Period))
@@ -456,6 +467,7 @@ namespace Edit
                     var position = ch.position;
                     position = new Vector3(position.x, position.y + 1, position.z);
                     ch.position = position;
+                    PlayAudio(Turn);
                 }
             }
 
@@ -474,18 +486,6 @@ namespace Edit
                 if (delta == 360) delta = 0;
                 PlayAudio(Turn);
                 StartCoroutine(Rotated(new Vector3(0, 90, 0)));
-            }
-            if (Input.GetKeyDown(KeyCode.PageUp))
-            {
-                Setup.IdCube--;
-                if (Setup.IdCube < 0) Setup.IdCube = Setup.FiguresCount - 1;
-                MadeFigureShablon();
-            }
-            if (Input.GetKeyDown(KeyCode.PageDown))
-            {
-                Setup.IdCube++;
-                if (Setup.IdCube == Setup.FiguresCount) Setup.IdCube = 0;
-                MadeFigureShablon();
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -569,7 +569,26 @@ namespace Edit
                     Destroy(child.gameObject);
                 _cpu = 0;
                 _health = 0;
+                _mass = 0;
                 InfoPanelUpdate();
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (_hits.Length > 0)
+                {
+                    foreach (var w in _hits)
+                    {
+                        if (IsFigure(w.transform.tag))
+                        {
+                            var t = w.transform;
+                            while (IsFigure(t.parent.tag)) t = t.parent.transform;
+                            Setup.IdCube = Setup.NameToInt(t.name);
+                            PlayAudio(Click);
+                            MadeFigureShablon();
+                            return;
+                        }
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -585,6 +604,7 @@ namespace Edit
                     var xx = Setup.madeFigure(Setup.IdCube, tr.position, tr.eulerAngles, Setup.MainColor);
                     _cpu += Setup.Figures[Setup.IdCube].Cpu;
                     _health += Setup.Figures[Setup.IdCube].Health;
+                    _mass += Setup.Figures[Setup.IdCube].Mass;
                     InfoPanelUpdate();
                     RedFigure(xx);
                     if (_simMode)
@@ -610,6 +630,7 @@ namespace Edit
                         var yy = Setup.madeFigure(Setup.IdCube, vv, eulerAngles, Setup.MainColor);
                         _cpu += Setup.Figures[Setup.IdCube].Cpu;
                         _health += Setup.Figures[Setup.IdCube].Health;
+                        _mass += Setup.Figures[Setup.IdCube].Mass;
                         InfoPanelUpdate();
                         yy.eulerAngles = SimRotate(eulerAngles);
                         if (yy.name == "Wheel1")
@@ -646,6 +667,7 @@ namespace Edit
                         while (IsFigure(t.parent.tag)) t = t.parent.transform;
                         _cpu -= Setup.Figures[Setup.NameToInt(t.name)].Cpu;
                         _health -= Setup.Figures[Setup.IdCube].Health;
+                        _mass -= Setup.Figures[Setup.IdCube].Mass;
                         InfoPanelUpdate();
                         Destroy(t.gameObject);
                         FigToRed(t);
@@ -660,6 +682,7 @@ namespace Edit
                             {
                                 _cpu -= Setup.Figures[Setup.NameToInt(g.name)].Cpu;
                                 _health -= Setup.Figures[Setup.IdCube].Health;
+                                _mass -= Setup.Figures[Setup.IdCube].Mass;
                                 InfoPanelUpdate();
                                 Destroy(g);
                                 FigToRed(g.transform);

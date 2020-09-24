@@ -3,25 +3,25 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-public class ReadMeButton : MonoBehaviour, ISelectHandler , IPointerEnterHandler,IPointerExitHandler
+public class ReadMeButton : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-	// When highlighted with mouse.
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		// Do something.
-		//Debug.Log("<color=red>Event:</color> Completed mouse highlight.");
-		transform.Find ("Text").GetComponent<Text> ().color = Color.black;
-	}
-	// When selected.
-	public void OnSelect(BaseEventData eventData)
-	{
-		// Do something.
 		transform.Find ("Text").GetComponent<Text> ().color = Color.black;
 	}
 	public void OnPointerExit (PointerEventData eventData) 
 	{
-		//Debug.Log ("The cursor exited the selectable UI element.");
 		transform.Find ("Text").GetComponent<Text> ().color = Color.white;
-		UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject (null);
+		var pointer = new PointerEventData(EventSystem.current);
+		ExecuteEvents.Execute(this.gameObject, pointer, ExecuteEvents.pointerUpHandler);
+	}
+	public void OnPointerDown(PointerEventData eventData)
+	{
+		transform.Find("Text").GetComponent<Text>().color = Color.black;
+	}
+
+	public void OnPointerUp(PointerEventData eventData)
+	{
+		EventSystem.current.SetSelectedGameObject(null);
 	}
 }

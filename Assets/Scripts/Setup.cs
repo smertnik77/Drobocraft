@@ -42,9 +42,9 @@ public static class Setup
 		Figure1 = Resources.Load("Materials/Figure1", typeof(Material)) as Material;
 
 		Figures = new Figure[FiguresCount]{
-			new Figure ("Cubes", "CubeBase6Faces", name : "Cube"),
-			new Figure ("Cubes", "CubeBase5Faces", 180, name : "Cube"),
-			new Figure ("Cubes", "CubeBase2Faces", 180, name : "Cube"),
+			new Figure ("Cubes", "CubeBase6Faces", name : "Cube x6"),
+			new Figure ("Cubes", "CubeBase5Faces", 180, name : "Cube x5"),
+			new Figure ("Cubes", "CubeBase2Faces", 180, name : "Cube x2"),
 			new Figure ("Cubes", "Pokat4",180, name : "Edge"),
 			new Figure ("Cubes", "VeryPokat",180, name : "Edge Round"),
 			new Figure ("Cubes", "VeryVognut",180, name : "Edge Slope"),
@@ -53,15 +53,15 @@ public static class Setup
 			new Figure ("Cubes", "PokatPiramid", 90, name : "Cone"),
 			new Figure ("Cubes", "neugol", 90, name : "Inner"),
 			new Figure ("Cubes", "VeryPokat3Ugol", 90, name : "Inner Round"),
-			new Figure ("Rotors", "Rotor1", 180, name : "T0 Rotor", cpu:10),
-			new Figure ("Lasers", "Laser1", 180, name : "T0 Laser", cpu:10,type:"Weapon"),
-			new Figure ("Lasers", "Laser1-static", 180, name : "T0 Laser Static", cpu:10,type:"Weapon"),
-			new Figure ("Struts", "Plast", -90, name : "Strut Short", cpu:6),
-			new Figure ("Struts", "Plast3x3", name : "Strut Plus", cpu:9),
-			new Figure ("Wheels", "Wheel1", 180, name : "Wheel1", cpu:10),
-			new Figure ("Rods", "Rod2d1", 180, name : "Rod Short", cpu:2),
-			new Figure ("Rods", "Rod2d2", 180, name : "Rod Short 2D", cpu:3),
-			new Figure ("Rods", "Rod2d3", 90, name : "Rod Short 3D", cpu:4),
+			new Figure ("Rotors", "Rotor1", 180, name : "T0 Rotor", cpu:10,health:10000,mass:20),
+			new Figure ("Lasers", "Laser1", 180, name : "T0 Laser", cpu:10,type:"Weapon",health:10000,mass:20),
+			new Figure ("Lasers", "Laser1-static", 180, name : "T0 Laser Static", cpu:10,type:"Weapon",health:10000,mass:20),
+			new Figure ("Struts", "Plast", -90, name : "Strut Short", cpu:6,health:13200,mass:60),
+			new Figure ("Struts", "Plast3x3", name : "Strut Plus", cpu:9,health:19800,mass:90),
+			new Figure ("Wheels", "Wheel1", 180, name : "Wheel1", cpu:10,health:17370,mass:260),
+			new Figure ("Rods", "Rod2d1", 180, name : "Rod Short", cpu:2,health:3450,mass:2),
+			new Figure ("Rods", "Rod2d2", 180, name : "Rod Short 2D", cpu:3,health:3450,mass:2),
+			new Figure ("Rods", "Rod2d3", 90, name : "Rod Short 3D", cpu:4,health:3450,mass:2),
 		};
 		StrPalette = new string[]{
 			"d6a090","fe3b1e","a12c32","fa2f7a","fb9fda","e61cf7","992f7c","47011f",
@@ -616,6 +616,7 @@ public class Figure
 	private string _name;
 	private string _type;
 	private int _health;
+    private int _mass;
 	public int Sim{
 		get {
 			return _sim;
@@ -642,14 +643,22 @@ public class Figure
 		}
 	}
 	public GameObject GO;
-	public Figure(
+    public int Mass
+    {
+        get
+        {
+            return _mass;
+        }
+    }
+    public Figure(
 		String Folder="retro",
 		String filename="beb1test2",
 		int s=0,
 		String name="",
 		int cpu=1,
 		string type="Сube",
-		int health=1725
+		int health=1725,
+        int mass=10
 	){
 		GO = Resources.Load("Models/"+Folder+"/"+filename, typeof(GameObject)) as GameObject;
 		_sim = s;
@@ -660,6 +669,7 @@ public class Figure
 		_cpu = cpu;
 		_type = type;
 		_health = health;
+        _mass = mass;
 	}
 	public int Faces{
 		get{ 
